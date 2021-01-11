@@ -72,3 +72,30 @@ btn.addEventListener('click', myAnimation);
 //     console.log('Hello');
 //     id = setTimeout(log, 500);
 // }, 500);
+
+040 Работа с датами и временем
+'use strict'
+
+const now = new Date();
+
+// console.log(now.getFullYear());
+// console.log(now.getMonth());
+// console.log(now.getDate());
+// console.log(now.getDay()); // номер дня недели Пн - 1
+
+// console.log(now.getHours()); // Местное время
+// console.log(now.getUTCHours()); // +0 по гринвичу
+
+// console.log(now.getTimezoneOffset()); // Разница между часовыми поясами в мин.
+// console.log(now.getTime());
+
+let start = new Date();
+
+for (let i = 0; i < 100000; i++) {
+    let some = i ** 3; // в ES7 ** - возводит в степень которая указана '3'
+}
+
+let end = new Date();
+
+alert(`Цикл отработал за ${end - start} миллисекунд`)
+// выводим в алерт время за которое отработал цикл
