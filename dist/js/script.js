@@ -87,14 +87,47 @@ window.addEventListener('DOMContentLoaded', () => {
     setClock('.timer', deadline);
 
     // Modal
-    const modalTrigger = document.querySelectorAll('[data-modal]');
-    console.log(modalTrigger);
-
-    modalTrigger.forEach((i) =>{
-        i.addEventListener('click', () => {
-            const modal = document.querySelector('.modal');
-            modal.style.display = 'block';
-        });
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+          modal = document.querySelector('.modal'),
+          modalCloseBtn = document.querySelector('[data-close]');
+    
+    function openModal() {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // блокирует прокрутку страницы
+        clearInterval(modalTimerId);// если пользователь сам открыл модалку очистить интервал
+    }
+    modalTrigger.forEach((btn) =>{
+        btn.addEventListener('click', openModal);
     });
+    
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });// закрытие модалки кликом на пустом экране
+
+    document.addEventListener('keydown', (e) => {
+        if(e.code === "Escape" && modal.style.display == 'block') {
+            closeModal();
+        }
+    }); /* закрыть модальное окно кнопкой escape, вызывать данное действие 
+    только если модальное окно активно*/
+
+    const modalTimerId = setTimeout(openModal, 10000);// автоматическое всплытие модалки
+
+    function showModalByScroll() {
+        if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    } // всплытие модалки при скролле до конца страницы, работает единожды
+    window.addEventListener('scroll', showModalByScroll);
 
 }); // Window
