@@ -99,3 +99,47 @@ let end = new Date();
 
 alert(`Цикл отработал за ${end - start} миллисекунд`)
 // выводим в алерт время за которое отработал цикл
+
+042 параметры документа, окна и работа с ними
+'use strict'
+
+const box = document.querySelector('.box');
+
+const width = box.clientWidth.width;
+const height = box.clientHeight.height;
+console.log(width, height); /* отображает с учетом падингов но без ширины полосы прокрутки,
+бордеров и марджинов */
+
+const width = box.offsetWidth.width;
+const height = box.offsetHeight.height;
+console.log(width, height); /* отображает с учетом паддингов ширины полосы прокрутки 
+бордеров и марджинов, но только видимую часть*/
+
+const width = box.scrollWidth.width;
+const height = box.scrollHeight.height;
+console.log(width, height); /* без учета ширины полосы прокрутки но высоту 
+всего проскролленного элемента*/
+
+btn.addEventListener('click', ()=> {
+    box.style.height = box.scrollHeight + 'px';
+
+}); // Все предидущие значения нельзя изменить
+
+
+console.log(box.scrollTop); /* сколько пикселей элемента уже было проскроллено
+эту метрику можно изменять */
+
+console.log(box.getBoundingClientRect().top); /* получаем все координаты элемента 
+в виде объекта и можем использовать конкретное свойство .top*/
+
+const style = window.getComputedStyle(box);
+/* получаем все значения примененных css стилей к элементу,
+ не путать с inline стилями */
+
+console.log(style.display); // значение свойства display
+
+console.log(document.documentElement.scrollTop);// то же действие для всего документа
+
+window.scrollBy(0, 400) // скрол на 400px от текущей позиции
+
+window.scrollTo(0, 400) // скрол на 400px от начала страницы

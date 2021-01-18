@@ -85,4 +85,16 @@ window.addEventListener('DOMContentLoaded', () => {
     } 
 
     setClock('.timer', deadline);
+
+    // Modal
+    const modalTrigger = document.querySelectorAll('[data-modal]');
+    console.log(modalTrigger);
+
+    modalTrigger.forEach((i) =>{
+        i.addEventListener('click', () => {
+            const modal = document.querySelector('.modal');
+            modal.style.display = 'block';
+        });
+    });
+
 }); // Window
