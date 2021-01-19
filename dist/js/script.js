@@ -104,7 +104,6 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         document.body.style.overflow = '';
     }
-
     modalCloseBtn.addEventListener('click', closeModal);
     
     modal.addEventListener('click', (e) => {

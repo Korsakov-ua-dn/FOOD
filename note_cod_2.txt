@@ -137,9 +137,32 @@ const style = window.getComputedStyle(box);
  не путать с inline стилями */
 
 console.log(style.display); // значение свойства display
-
 console.log(document.documentElement.scrollTop);// то же действие для всего документа
 
 window.scrollBy(0, 400) // скрол на 400px от текущей позиции
-
 window.scrollTo(0, 400) // скрол на 400px от начала страницы
+
+045 Функции конструкторы, создают объекты
+
+function User(name, id) {
+    this.name = name;
+    this.id = id;
+    this.human = true;
+    this.hello = function() {
+        console.log(`Hello ${this.name}`);
+    };
+}// функция конструирует новый объект
+
+const ivan = new User('Ivan', 28);
+const alex = new User('Alex', 30);
+
+alex.hello();
+
+// console.log(ivan);
+// console.log(alex);
+
+User.prototype.exit = function(name) {
+    console.log(`Пользователь ${this.name} ушел`);
+};// создаем новый метод у прототипа
+
+ivan.exit();// работает только после создания метода у прототипа
