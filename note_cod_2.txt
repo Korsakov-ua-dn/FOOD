@@ -166,3 +166,55 @@ User.prototype.exit = function(name) {
 };// создаем новый метод у прототипа
 
 ivan.exit();// работает только после создания метода у прототипа
+
+046 Контекст вызова this
+'use strict';
+/* 1. Контекстом вызова обычной функции является window,
+если 'use strict' то гтвукаштв
+   2. this в конструкторах и классах - это новый экземпляр объекта
+   3. ручная привязка this: call, apply, bind
+
+const obj = {
+    num: 5,
+    sayNumber: function() {
+        const say = () => {
+            console.log(this);
+        };
+        say();
+    }
+};
+obj.sayNumber();
+/* контекст вызова this у обычной функции ссылается на объект внутри функции
+   контекстом вызова у метода является сам объект
+   контекстом вызова стрелочной функции будет ее родитель, своего нет
+*/
+
+const double = a => a * 2;/*тоже самое что и
+const double = (a) {
+    return a * 2;
+};
+Если стрелочная функция умещается на одной строке можно использ ее
+укороченный вариант, так же если передается только один аргумент
+можно записать без () */
+
+btn.addEventListener('click', function() {
+    this.style.backgroundColor = 'red';
+});// this тоже самоечто event.target
+
+function sayName(sername) {
+    console.log(this);
+    console.log(this.name + sername);
+}
+const user = {
+    name: 'John'
+};
+sayName.call(user, 'Smith');
+sayName.apply(user, ['Smith']);//тоже самое, разница в синтаксисе
+/* функция преобрела контекст вызова благодаря методу call или apply
+   ее контекстом стал объект user */
+
+function count(num) {
+    return this*num;
+}
+const double = count.bind(2);//bind создаеn новую фунцию к уже существующей
+console.log(double(3));//d функцию double передаем один аргумент который будет удвоен
