@@ -218,3 +218,31 @@ function count(num) {
 }
 const double = count.bind(2);//bind создаеn новую фунцию к уже существующей
 console.log(double(3));//d функцию double передаем один аргумент который будет удвоен
+
+047 Классы, наследование
+class Rectangle {
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
+    calcArea() {
+        return this.height * this.width;
+    }
+}
+// const square = new Rectangle(10, 10);
+// console.log(square.calcArea());
+
+//Наследование классов, иерархия
+class ColorRectangleWithText extends Rectangle {
+    constructor(height, width, text, bgColor) {
+        super(height, width);// просто() - все свойства родителя
+        this.text = text;
+        this.bgColor = bgColor;
+    }
+    showMyProps() {
+        console.log(`Текст: ${this.text}, цвет: ${this.bgColor}`);
+    }
+}
+const div = new ColorRectangleWithText(25, 10, 'jhjhfjdhf', 'red');
+div.showMyProps();
+console.log(div.calcArea());
