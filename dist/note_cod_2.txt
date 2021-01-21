@@ -246,3 +246,11 @@ class ColorRectangleWithText extends Rectangle {
 const div = new ColorRectangleWithText(25, 10, 'jhjhfjdhf', 'red');
 div.showMyProps();
 console.log(div.calcArea());
+
+049 оператор rest
+const log = function(a, b, ...c) {
+    console.log(a, b, c);
+};
+log('basic', 'rest', 'operator', 'usage');
+/* оператор rest объединяет отдельные сущности в массив, если не передать ничего
+то поумолчанию  rest оератор сформирует пустой масив */
