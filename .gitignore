@@ -1,1 +1,11 @@
-node_modules
+# dependencies
+/node_modules
+/.npm
+.npm.json
+
+# testing
+/coverage
+
+# production
+
+/build
