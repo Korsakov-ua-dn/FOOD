@@ -181,12 +181,19 @@ window.addEventListener('DOMContentLoaded', () => {
     }; /* свойство ".ok" - говорит о том что мы что-то получили и все в порядке
           свойство ".status" - статус котор вернул сервер (200, 404 и т.д.) */
 
-    getResource('http://localhost:3000/menu') // запрос на сервер получает массив
+    // getResource('http://localhost:3000/menu') // запрос на сервер получает массив
+    //     .then(data => {
+            // data.forEach(({img, altimg, title, descr, price}) => {
+            //     new menuItem(img, altimg, title, descr, price, '.menu .container').render();
+            // });
+    //     }); //деструктуризация объекта на отдельные свойства при помощи {}
+
+    axios.get('http://localhost:3000/menu')
         .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
+            data.data.forEach(({img, altimg, title, descr, price}) => {
                 new menuItem(img, altimg, title, descr, price, '.menu .container').render();
             });
-        }); //деструктуризация объекта на отдельные свойства при помощи {}
+        }); // обращаемся к получеенному объекту, берем только данные data внутри этого объекта
 
     // new menuItem(
     //     "img/tabs/vegy.jpg",
@@ -330,7 +337,117 @@ window.addEventListener('DOMContentLoaded', () => {
          }, 4000);
      }
 
-    fetch('http://localhost:3000/menu')
-        .then(data => data.json())
-        .then(res => console.log(res));
+    // fetch('http://localhost:3000/menu')
+    //     .then(data => data.json())
+    //     .then(res => console.log(res));
+
+    // Slider
+    const slides = document.querySelectorAll('.offer__slide'),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next'),
+          total = document.querySelector('#total'),
+          current = document.querySelector('#current'),
+          slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+          slidesField = document.querySelector('.offer__slider__inner'),
+          width = window.getComputedStyle(slidesWrapper).width; // получаем ширину окна просмотра слайдов
+    let slideIndex = 1;
+    let offset = 0;
+
+    // showSlides(slideIndex);
+    // if (slides.length < 10) {
+    //     total.textContent = `0${slides.length}`;
+    // } else {
+    //     total.textContent = slides.length;
+    // }
+
+    // function showSlides(n) {
+    //     if (n > slides.length) {
+    //         slideIndex = 1;
+    //     }
+
+    //     if (n < 1) {
+    //         slideIndex = slides.length;
+    //     }
+
+    //     slides.forEach(item => item.style.display = 'none');
+    //     slides[slideIndex - 1].style.display = 'block';
+
+        // if (slideIndex < 10) {
+        //     current.textContent = `0${slideIndex}`;
+        // } else {
+        //     current.textContent = slideIndex;
+        // }
+    // }
+
+    // function plusSlides (n) {
+    //     showSlides(slideIndex += n); // прибавить и присвоить новое значение переменной
+    // }
+    // prev.addEventListener('click', () => {
+    //     plusSlides(-1);
+    // });
+    // next.addEventListener('click', () => {
+    //     plusSlides(1);
+    // });
+
+    // Slider 2
+    if (slides.length < 10) {
+        total.textContent = `0${slides.length}`;
+        current.textContent = `0${slideIndex}`;
+    } else {
+        total.textContent = slides.length;
+        current.textContent = slideIndex;
+    }
+
+    slidesField.style.width = slides.length*100 + '%';//ед. изм % т.к. стили css, поле слайдов равно 400% родителя
+    slidesField.style.display = 'flex'; // Все слайды были блочными стали в одну линию
+    slidesField.style.transition = '0.5s all';
+
+    slidesWrapper.style.overflow = 'hidden'; // скрываем все элементы кот. не попали в область видимости обертки
+
+    slides.forEach(slide => {
+        slide.style.width = width; // сделаем все слайды одинаковой ширины
+    });
+
+    next.addEventListener('click', () => {
+        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+            offset = 0;// т.к. первый слайд уже отображен -1
+        } else {
+            offset += +width.slice(0, width.length - 2);
+        }
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if (slideIndex == slides.length) {
+            slideIndex = 1;
+        } else {
+            slideIndex++;
+        }
+
+        if (slides.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
+    });// т.к. переменая width содержит строку '650px' то нужно отрезать последние два символа и превратить в число
+
+    prev.addEventListener('click', () => {
+        if (offset == 0) {
+            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+        } else {
+            offset -= +width.slice(0, width.length - 2);
+        }
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if (slideIndex == 1) {
+            slideIndex = slides.length;
+        } else {
+            slideIndex--;
+        }
+
+        if (slides.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
+    });
+
 }); // Window
