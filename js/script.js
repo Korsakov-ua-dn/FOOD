@@ -310,7 +310,7 @@ window.addEventListener('DOMContentLoaded', () => {
             //      }
             //  });
          });
-     }/* для того чтоб сервер смог получить данные у инпута или др. интерактивной части
+     } /* для того чтоб сервер смог получить данные у инпута или др. интерактивной части
      верстки должен быть прописан атрибут name
      Для того что бы изменения отработали на локальном сервере необходимо сбросить кэш
      в браузере на виндовс sift+F5 */
@@ -518,4 +518,32 @@ window.addEventListener('DOMContentLoaded', () => {
         dots[slideIndex - 1].style.opacity = 1;
     }
 
-}); // Window
+    // Calc
+    const result = document.querySelector('.calculating__result span');
+    // result.textContent ='1000';
+    // console.log(result);
+    let sex, height, weight, age, ratio;
+
+    function calcTotal () {
+        if (!sex || !height || !weight || !age || !ratio) {
+            result.textContent = "Заполните все поля";
+            return;
+        }
+
+        if (sex === 'male') {
+            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age) * ratio);
+        } else {
+            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age) * ratio);
+        }
+    }
+    function getStaticInformation (parent, activeClass) {
+        const elements = document.querySelectorAll(`${parent} div`);
+        if (elements.getAttribute) {
+            
+        }
+    }
+    function getDinamicInformation () {
+
+    }
+
+});
