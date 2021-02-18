@@ -524,26 +524,37 @@ window.addEventListener('DOMContentLoaded', () => {
     // console.log(result);
     let sex, height, weight, age, ratio;
 
-    function calcTotal () {
-        if (!sex || !height || !weight || !age || !ratio) {
-            result.textContent = "Заполните все поля";
-            return;
-        }
+    // function calcTotal () {
+    //     if (!sex || !height || !weight || !age || !ratio) {
+    //         result.textContent = "Заполните все поля";
+    //         return;
+    //     }
 
-        if (sex === 'male') {
-            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age) * ratio);
-        } else {
-            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age) * ratio);
-        }
-    }
-    function getStaticInformation (parent, activeClass) {
-        const elements = document.querySelectorAll(`${parent} div`);
-        if (elements.getAttribute) {
-            
-        }
-    }
-    function getDinamicInformation () {
+    //     if (sex === 'male') {
+    //         result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age) * ratio);
+    //     } else {
+    //         result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age) * ratio);
+    //     }
+    // }
 
+    const elements = document.querySelectorAll(".calculating__field div");
+
+
+    function getStaticInformation (parentSelector1, parentSelector2, activClass) {
+        document.querySelector(parentSelector1).addEventListener('click', (e) => {
+            if (e.target.getAttribute('data-ratio')) {
+                ratio = +e.target.getAttribute('data-ratio');
+            }
+            console.log(ratio);
+        });
+        document.querySelector(parentSelector2).addEventListener('click', (e) => {
+          sex = e.target.getAttribute('id');
+          console.log(sex);
+        });
     }
+    getStaticInformation('.calculating__choose_big', '#gender', 'calculating__choose-item_active');
+    // function getDinamicInformation () {
+
+    // }
 
 });
