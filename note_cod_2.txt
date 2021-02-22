@@ -296,3 +296,68 @@ console.log(str.match(/\w\d\w\d/i));
 // Обратные классы:
 // \D не цифры
 // \W не буквы
+
+068 Геттеры и сеттеры свойства объекта 
+свойства данные и свойства аксцессоры (get и set)
+const persone = {
+        name: 'Alex',
+        age: 25,
+
+        get userAge() {
+            return this.age;
+        },
+        set userAge(num) {
+            this.age = num;
+        }
+    };
+    console.log(persone.userAge = 30);
+    console.log(persone.userAge);
+
+069 Инкапсуляция объекта js
+'use strict';
+class User {
+    constructor(name, age) {
+        this.name = name;
+        this._age = age;
+    }
+
+    #surname = 'Petrychenko';
+
+    say = () => {
+        console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this._age}`);
+    }
+
+    get age() {
+        return this._age;
+    }
+
+    set age(age) {
+        if (typeof age === 'number' && age > 0 && age < 110) {
+            this._age = age;
+        } else {
+            console.log('Недопустимое значение!');
+        }
+    }
+}
+
+const ivan = new User('Ivan', 27);
+// ivan.say();
+const oleg = new User('Oleg', 36);
+oleg.name = 111;
+oleg._age = 90; //так изменять нельзя плохой тон
+oleg.age = 23;
+oleg.say();
+
+070 модуль
+(function(){}()); // анонимная самовызывающаясь функция с локальной областью видимости
+// Ссамодостаточный модуль позволяет добиться эффекта инкапсуляции, все переменные не доступны в глобальном пространстве
+
+const user = (function(){
+    const privat = function() {
+        console.log("I am privat!");
+    }
+    return {
+        sayHello: privat
+    }; // из анонимной функции возвращаем объект которому прописываем метод sayHello и в него передаем ссылку на функцию privat
+}());
+user.sayHello(); // получаем в консоль I am privat!
