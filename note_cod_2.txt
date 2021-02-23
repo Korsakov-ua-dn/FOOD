@@ -361,3 +361,21 @@ const user = (function(){
     }; // из анонимной функции возвращаем объект которому прописываем метод sayHello и в него передаем ссылку на функцию privat
 }());
 user.sayHello(); // получаем в консоль I am privat!
+
+075 Нейтрализуем ошибки скрипта
+ try {
+        console.log('normal');
+        console.log(a);
+        console.log('steel normal');
+    } catch(error) {
+        console.log(error); // указывает причину ошибки
+        // console.log(error.name); // ReferenceError
+        // console.log(error.messege); // undefined
+        // console.log(error.stack); // ReferenceError: a is not defined более подробно если скрипт большой
+        console.log('error');
+    } finally {} // код который обязательно выполнится (этот раздел не обязательный)
+    console.log('ok'); /* в консоли 
+    normal
+    ReferenceError: a is not defined
+    error
+    ok */
