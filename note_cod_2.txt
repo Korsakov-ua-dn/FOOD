@@ -379,3 +379,43 @@ user.sayHello(); // получаем в консоль I am privat!
     ReferenceError: a is not defined
     error
     ok */
+
+076 Babel перевод кода из ES6+ в старый формат ES5
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+// устанавливаем отдельные кусочки пакета :
+    core - основные функциональные единицы которые и будут проганять наш код
+    cli - позволяет запускать babel из командной строки
+    preset-env - пресет с настройками, env наиболее часто используемый
+npm install --save @babel/polyfill
+в package.json необходимо добавить зависимость
+    "browserslist": [
+    ">1%"
+    ],
+// сайт не работает использовал другую команду - npx browserslist ">1%" что то пошло не так!!!!
+
+// в файле webpack.config.js
+ module: {
+    rules: [ // правила будут действовать
+      {
+        test: /\.m?js$/, // находим файлы .js]
+        exclude: /(node_modules|bower_components)/, // файла которые нужно исключить
+        use: { // как и что будем использовать
+          loader: 'babel-loader', // связывет webpack с babel, установитт через npm!!!
+          options: { // опции которые будут использоваться
+            presets: [['@babel/preset-env', {
+                debug: true, // позволяет во время компиляции увидеть что там происходит
+                corejs: 3, // библиотека corejs
+                useBuiltIns: "usage" // интеллектуально вбирает только те полифилы corejs которые используются в проекте
+            }]]
+          }
+        }
+      }
+    ]
+  } // какие модули будем использовать
+  npm i --save-dev babel-loader
+  npm i -save-dev core-js
+
+// инсталяция дополнительных промисов вручную если остались какие то баги 
+// например npm install es6-promise
+// подключение автополифила запись первой строкой в script.js - require('es6-promise').polyfill();
+// запускаем сборку webpack в результате файл bundle.js изменился в размере в три раза
