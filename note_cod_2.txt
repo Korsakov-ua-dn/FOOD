@@ -419,3 +419,63 @@ npm install --save @babel/polyfill
 // например npm install es6-promise
 // подключение автополифила запись первой строкой в script.js - require('es6-promise').polyfill();
 // запускаем сборку webpack в результате файл bundle.js изменился в размере в три раза
+
+079 Функции генераторы
+function* generator() {
+    yield 'S';
+    yield 'c';
+    yield 'r';
+    yield 'i';
+    yield 'p';
+    yield 't';
+}
+const str = generator();
+console.log(str.next()); // {S}
+console.log(str.next()); // {c}
+console.log(str.next()); // {r}
+console.log(str.next().value); // i
+
+
+function* count(n) {
+    for (let i = 0; i < n; i++) {
+        yield i;
+    }
+}
+for (let k of count(7)) {
+    console.log(k);
+}
+
+080 Анимация js
+const btn = document.querySelector('.btn'),
+      elem = document.querySelector('.box');  
+let pos = 0;
+
+// function myAnimation() {
+//     let pos = 0;
+
+//     const id = setInterval(frame, 10);
+//     function frame() {
+//         if (pos == 300) {
+//             clearInterval(id);
+//         } else {
+//             pos++;
+//             elem.style.top = pos + "px";
+//             elem.style.left = pos + 'px';
+//         }
+//     }
+// }
+
+function myAnimation() {
+    pos++;
+    elem.style.top = pos + "px";
+    elem.style.left = pos + 'px';
+
+    if (pos < 300) {
+        requestAnimationFrame(myAnimation);
+    }
+}
+
+btn.addEventListener('click', () => requestAnimationFrame(myAnimation));
+
+let id = requestAnimationFrame(myAnimation);
+cancelAnimationFrame(id);
